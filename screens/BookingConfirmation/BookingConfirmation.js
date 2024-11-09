@@ -64,7 +64,6 @@ const BookingConfirmation = ({ route, navigation }) => {
           <TouchableOpacity
             style={styles.returnButton}
             // onPress={handleReturnToInfoPage}
-            onPress={() => props?.navigation?.navigate("Booking")}
           >
             <Text style={styles.buttonText}>Return to Info Page</Text>
           </TouchableOpacity>
