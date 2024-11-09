@@ -27,12 +27,12 @@ const BookingConfirmation = ({ route, navigation }) => {
     Alert.alert("Print Details", "Printing functionality is not implemented.");
   };
 
-  const handleReturnToInfoPage = () => {
-    // Pass a fallback value if shelterId is undefined
-    navigation.navigate("Shelterpage", {
-      shelterId: bookingDetails.shelterId || "",
-    });
-  };
+  // const handleReturnToInfoPage = () => {
+  //   // Pass a fallback value if shelterId is undefined
+  //   navigation.navigate("Shelterpage", {
+  //     shelterId: bookingDetails.shelterId || "",
+  //   });
+  // };
 
   return (
     <View style={styles.container}>
@@ -63,7 +63,8 @@ const BookingConfirmation = ({ route, navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.returnButton}
-            onPress={handleReturnToInfoPage}
+            // onPress={handleReturnToInfoPage}
+            onPress={() => props?.navigation?.navigate("Booking")}
           >
             <Text style={styles.buttonText}>Return to Info Page</Text>
           </TouchableOpacity>
