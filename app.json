@@ -2,7 +2,9 @@
   "expo": {
     "name": "Simplicity",
     "slug": "simplicity",
-    "plugins": ["react-native-video"],
+    "plugins": [
+      "react-native-video"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,7 +14,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -20,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": []
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,8 +34,12 @@
       "policy": "sdkVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/3c20ccb9-2e02-41a9-a155-f50d3117ac94"
+      "url": "https://u.expo.dev/ccf8c6ce-7f02-45df-822f-6e9103e30557"
     },
-    "extra": {}
+    "extra": {
+      "eas": {
+        "projectId": "ccf8c6ce-7f02-45df-822f-6e9103e30557"
+      }
+    }
   }
 }
