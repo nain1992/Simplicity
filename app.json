@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "Together",
-    "slug": "together",
+    "name": "Simplicity",
+    "slug": "simplicity",
+    "plugins": ["react-native-video"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

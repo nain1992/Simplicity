@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity, useWindowDimensions } from "react-native";
 import { connect } from "react-redux";
 import { standardButtonStyles } from "../styles/Global/main";
+import Ionicons from "@expo/vector-icons/Ionicons";
 const StandardButton = (props) => {
   let { customStyles, textStyles, onPress, title } = props;
   let { width, height } = useWindowDimensions();
@@ -12,6 +13,7 @@ const StandardButton = (props) => {
       onPress={onPress}
     >
       <Text style={[styles.text, textStyles]}>{title}</Text>
+      <Ionicons name="arrow-forward" size={18} color="#fff" />
     </TouchableOpacity>
   );
 };

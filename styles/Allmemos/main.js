@@ -7,6 +7,6 @@ export const styles = ({ width, height }) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#fff",
+      backgroundColor: "#222",
     },
   });
