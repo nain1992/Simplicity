@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { styles as _styles } from "../../styles/Booking/main";
 import { connect } from "react-redux";
-import { LinearGradient } from "expo-linear-gradient";
 import Simpleheader from "../../globalComponents/Simpleheader";
 import Languagedropdown from "../../globalComponents/Languagedropdown";
 
@@ -32,8 +31,8 @@ const Booking = (props) => {
         name: userName,
         beds: bedsRequired,
         time: time,
-        confirmationNumber: Math.floor(Math.random() * 1000000), // example confirmation number
-        shelterId: props?.shelterId || "", // pass shelterId if available
+        confirmationNumber: Math.floor(Math.random() * 1000000),
+        shelterId: props?.shelterId || "",
       };
 
       props?.navigation?.navigate("BookingConfirmation", { bookingDetails });

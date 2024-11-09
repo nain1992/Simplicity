@@ -66,7 +66,6 @@ const Shelterlocator = (props) => {
         return;
       }
 
-      // Set initial location to Ottawa coordinates
       setLocation({
         latitude: 45.3521,
         longitude: -75.754,

@@ -25,12 +25,10 @@ const Mainservices = (props) => {
     setIsDropdownOpen((prev) => !prev);
   };
 
-  // Animation refs
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const translateYAnim = useRef(new Animated.Value(30)).current;
 
   useEffect(() => {
-    // Start animations on component mount
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 3000,

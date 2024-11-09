@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  TextInput,
-  FlatList,
   TouchableOpacity,
   useWindowDimensions,
   Linking,
@@ -13,7 +11,6 @@ import { connect } from "react-redux";
 import { styles as _styles } from "../../styles/Shelterpage/main";
 import Simpleheader from "../../globalComponents/Simpleheader";
 import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
 import Languagedropdown from "../../globalComponents/Languagedropdown";
 
 const Shelterpage = ({ route }) => {

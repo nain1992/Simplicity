@@ -4,7 +4,6 @@ import {
   View,
   useWindowDimensions,
   TouchableOpacity,
-  Animated,
 } from "react-native";
 import { connect } from "react-redux";
 import { styles as _styles } from "../styles/Languagedropdown/main";
