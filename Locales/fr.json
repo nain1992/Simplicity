@@ -1,0 +1,49 @@
+{
+  "ourServices": "Nos services",
+  "shelters": "Refuges",
+  "food": "Nourriture",
+  "health": "Santé",
+  "chooseService": "Choisissez le service qui correspond le mieux à vos besoins et cliquez pour en savoir plus",
+  "comingSoon": "Bientôt disponible!",
+  "goBack": "Retourner",
+  "locationPermissionDenied": "Permission d'accéder à l'emplacement refusée",
+  "yourLocation": "Votre emplacement",
+  "youAreHere": "Vous êtes ici",
+  "searchShelters": "Rechercher des refuges...",
+  "language": {
+    "english": "Anglais",
+    "french": "Français"
+  },
+  "shelterDetails": {
+    "contact": "Contact",
+    "address": "Adresse",
+    "description": "Description",
+    "getDirections": "Obtenir l'itinéraire",
+    "availabilityStatus": "État de disponibilité",
+    "beds": "Lits",
+    "food": "Nourriture",
+    "bookNow": "Réserver maintenant",
+    "errorGoogleMaps": "Échec de l'ouverture de Google Maps."
+  },
+  "booking": {
+    "header": "Détails de la réservation",
+    "time": "Temps",
+    "timePlaceholder": "Entrez l'heure",
+    "bedsRequired": "Nombre de lits requis",
+    "bedsPlaceholder": "Entrez le nombre de lits",
+    "yourName": "Votre nom",
+    "namePlaceholder": "Entrez votre nom",
+    "book": "Réserver",
+    "errorFillFields": "Veuillez remplir tous les champs."
+  },
+  "bookingConfirmation": {
+    "bookingSummary": "Résumé de la réservation",
+    "name": "Nom",
+    "numberOfBeds": "Nombre de lits",
+    "time": "Temps",
+    "confirmationNumber": "Numéro de confirmation",
+    "printDetails": "Imprimer les détails",
+    "printingNotImplemented": "La fonctionnalité d'impression n'est pas implémentée.",
+    "returnToInfoPage": "Retourner à la page d'information"
+  }
+}

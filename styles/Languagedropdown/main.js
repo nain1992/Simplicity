@@ -10,7 +10,7 @@ export const styles = ({ width, height }) =>
       width: getPercent(32, width),
       position: "absolute",
       borderRadius: 10,
-      top: getPercent(-73, height),
+      top: getPercent(5, height),
       right: 15,
       backgroundColor: "#fff",
       justifyContent: "center",

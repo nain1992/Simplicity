@@ -1,91 +1,102 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   useWindowDimensions,
   Alert,
+  Animated,
 } from "react-native";
 import { connect } from "react-redux";
 import { styles as _styles } from "../../styles/BookingConfirmation/main";
 import Simpleheader from "../../globalComponents/Simpleheader";
 import Languagedropdown from "../../globalComponents/Languagedropdown";
+import { useTranslation } from "react-i18next";
 
 const BookingConfirmation = ({ route, navigation }) => {
+  const { t, i18n } = useTranslation();
   const { width, height } = useWindowDimensions();
   const styles = _styles({ width, height });
-  const [language, setLanguage] = useState("en");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
-  // Extract booking details from route params
-  const bookingDetails = route.params?.bookingDetails || {}; // Ensure this line to avoid undefined errors
+  const bookingDetails = route.params?.bookingDetails || {};
 
   const handlePrint = () => {
-    Alert.alert("Print Details", "Printing functionality is not implemented.");
+    Alert.alert(t("printDetails"), t("printingNotImplemented"));
   };
 
-  // const handleReturnToInfoPage = () => {
-  //   // Pass a fallback value if shelterId is undefined
-  //   navigation.navigate("Shelterpage", {
-  //     shelterId: bookingDetails.shelterId || "",
-  //   });
-  // };
+  // Animation state
+  const [fadeAnim] = useState(new Animated.Value(0));
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.container}>
-        <Simpleheader
-          isDropdownOpen={isDropdownOpen}
-          onPickrPress={toggleDropdown}
-          title={language === "en" ? "English" : "Français"}
-        />
+    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+      <Simpleheader
+        isDropdownOpen={isDropdownOpen}
+        onPickrPress={toggleDropdown}
+        title={i18n.language === "en" ? "English" : "Français"}
+      />
 
-        <View style={styles.summaryContainer}>
-          <Text style={styles.confirmationHeader}>Booking Summary</Text>
+      <View style={styles.summaryContainer}>
+        <Text style={styles.confirmationHeader}>
+          {t("bookingConfirmation.bookingSummary")}
+        </Text>
 
-          {/* Safely display booking details */}
-          <Text style={styles.detailText}>Name: {bookingDetails?.name}</Text>
-          <Text style={styles.detailText}>
-            Number of Beds: {bookingDetails?.beds}
-          </Text>
-          <Text style={styles.detailText}>Time: {bookingDetails?.time}</Text>
-          <Text style={styles.detailText}>
-            Confirmation Number: {bookingDetails?.confirmationNumber}
-          </Text>
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.printButton} onPress={handlePrint}>
-            <Text style={styles.buttonText}>Print Details</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.returnButton}
-            // onPress={handleReturnToInfoPage}
-          >
-            <Text style={styles.buttonText}>Return to Info Page</Text>
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.detailText}>
+          {t("bookingConfirmation.name")}: {bookingDetails?.name}
+        </Text>
+        <Text style={styles.detailText}>
+          {t("bookingConfirmation.numberOfBeds")}: {bookingDetails?.beds}
+        </Text>
+        <Text style={styles.detailText}>
+          {t("bookingConfirmation.time")}: {bookingDetails?.time}
+        </Text>
+        <Text style={styles.detailText}>
+          {t("bookingConfirmation.confirmationNumber")}
+          {bookingDetails?.confirmationNumber}
+        </Text>
       </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.printButton} onPress={handlePrint}>
+          <Text style={styles.buttonText}>
+            {t("bookingConfirmation.printDetails")}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.returnButton}
+          onPress={() => navigation?.navigate("Mainservices")}
+        >
+          <Text style={styles.buttonText}>
+            {t("bookingConfirmation.returnToInfoPage")}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
       {isDropdownOpen && (
         <Languagedropdown
           onEngpress={() => {
-            setLanguage("en");
+            i18n.changeLanguage("en"); // Change language to English
             setIsDropdownOpen(false);
           }}
           onFrenchpress={() => {
-            setLanguage("es");
-            setIsDropdownOpen(false);
-          }}
-          onSpanishpress={() => {
-            setLanguage("es");
+            i18n.changeLanguage("fr"); // Change language to French
             setIsDropdownOpen(false);
           }}
         />
       )}
-    </View>
+    </Animated.View>
   );
 };
 

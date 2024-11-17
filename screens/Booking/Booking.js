@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,21 +6,25 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   KeyboardAvoidingView,
+  Alert,
+  Animated,
 } from "react-native";
 import { styles as _styles } from "../../styles/Booking/main";
 import { connect } from "react-redux";
 import Simpleheader from "../../globalComponents/Simpleheader";
 import Languagedropdown from "../../globalComponents/Languagedropdown";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const Booking = (props) => {
+  const { t, i18n } = useTranslation(); // Initialize translation hook
   const { width, height } = useWindowDimensions();
   const styles = _styles({ width, height });
 
   const [time, setTime] = useState("");
   const [bedsRequired, setBedsRequired] = useState("");
   const [userName, setUserName] = useState("");
-  const [language, setLanguage] = useState("en");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
@@ -37,24 +41,35 @@ const Booking = (props) => {
 
       props?.navigation?.navigate("BookingConfirmation", { bookingDetails });
     } else {
-      alert("Please fill all the fields.");
+      Alert.alert(t("errorFillFields"));
     }
   };
+
+  const [fadeAnim] = useState(new Animated.Value(0));
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       <Simpleheader
         isDropdownOpen={isDropdownOpen}
         onPickrPress={toggleDropdown}
-        title={language === "en" ? "English" : "Français"}
+        title={i18n.language === "en" ? "English" : "Français"}
       />
       <KeyboardAvoidingView behavior="padding">
-        <Text style={styles.header}>Booking Details</Text>
+        <Text style={styles.header}>{t("booking.header")}</Text>
 
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>Time:</Text>
+          <Text style={styles.label}>{t("booking.time")}</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter time"
+            placeholder={t("booking.timePlaceholder")}
             value={time}
             onChangeText={setTime}
             keyboardType="default"
@@ -62,10 +77,10 @@ const Booking = (props) => {
         </View>
 
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>Number of Beds Required:</Text>
+          <Text style={styles.label}>{t("booking.bedsRequired")}</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter number of beds"
+            placeholder={t("booking.bedsPlaceholder")}
             value={bedsRequired}
             onChangeText={setBedsRequired}
             keyboardType="numeric"
@@ -73,10 +88,10 @@ const Booking = (props) => {
         </View>
 
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>Your Name:</Text>
+          <Text style={styles.label}>{t("booking.yourName")}</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter your name"
+            placeholder={t("booking.namePlaceholder")}
             value={userName}
             onChangeText={setUserName}
             keyboardType="default"
@@ -84,26 +99,29 @@ const Booking = (props) => {
         </View>
 
         <TouchableOpacity style={styles.bookButton} onPress={handleBooking}>
-          <Text style={styles.bookButtonText}>Book</Text>
+          <Text style={styles.bookButtonText}>{t("booking.book")}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.backbtn}
+          onPress={() => props?.navigation?.goBack()}
+        >
+          <Text style={styles.backtext}>{t("goBack")}</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
+
       {isDropdownOpen && (
         <Languagedropdown
           onEngpress={() => {
-            setLanguage("en");
+            i18n.changeLanguage("en");
             setIsDropdownOpen(false);
           }}
           onFrenchpress={() => {
-            setLanguage("es");
-            setIsDropdownOpen(false);
-          }}
-          onSpanishpress={() => {
-            setLanguage("es");
+            i18n.changeLanguage("fr");
             setIsDropdownOpen(false);
           }}
         />
       )}
-    </View>
+    </Animated.View>
   );
 };
 

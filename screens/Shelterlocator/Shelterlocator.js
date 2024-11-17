@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   useWindowDimensions,
+  Animated,
 } from "react-native";
 import { connect } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
@@ -13,6 +14,7 @@ import * as Location from "expo-location";
 import { styles as _styles } from "../../styles/Shelterlocator/main";
 import Simpleheader from "../../globalComponents/Simpleheader";
 import Languagedropdown from "../../globalComponents/Languagedropdown";
+import { useTranslation } from "react-i18next";
 
 const shelters = [
   {
@@ -52,17 +54,26 @@ const Shelterlocator = (props) => {
   });
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredShelters, setFilteredShelters] = useState(shelters);
-  const [language, setLanguage] = useState("en");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { t, i18n } = useTranslation();
+
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
+  const [fadeAnim] = useState(new Animated.Value(0));
+
   useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start();
+
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.error("Permission to access location was denied");
+        console.error(t("locationPermissionDenied"));
         return;
       }
 
@@ -85,11 +96,13 @@ const Shelterlocator = (props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       <Simpleheader
         isDropdownOpen={isDropdownOpen}
         onPickrPress={toggleDropdown}
-        title={language === "en" ? "English" : "Français"}
+        title={
+          i18n.language === "en" ? t("language.english") : t("language.french")
+        }
       />
       {/* Map View */}
       <View style={styles.mapwrappr}>
@@ -97,8 +110,8 @@ const Shelterlocator = (props) => {
           {location && (
             <Marker
               coordinate={location}
-              title="Your Location"
-              description="You are here"
+              title={t("yourLocation")}
+              description={t("youAreHere")}
               pinColor="red"
             />
           )}
@@ -120,7 +133,7 @@ const Shelterlocator = (props) => {
       <View style={styles.searchBar}>
         <TextInput
           style={styles.input}
-          placeholder="Search shelters..."
+          placeholder={t("searchShelters")}
           value={searchQuery}
           onChangeText={handleSearch}
         />
@@ -147,23 +160,25 @@ const Shelterlocator = (props) => {
           </TouchableOpacity>
         )}
       />
+      <TouchableOpacity
+        style={styles.backbtn}
+        onPress={() => props?.navigation?.goBack()}
+      >
+        <Text style={styles.backtext}>{t("goBack")}</Text>
+      </TouchableOpacity>
       {isDropdownOpen && (
         <Languagedropdown
           onEngpress={() => {
-            setLanguage("en");
+            i18n.changeLanguage("en");
             setIsDropdownOpen(false);
           }}
           onFrenchpress={() => {
-            setLanguage("es");
-            setIsDropdownOpen(false);
-          }}
-          onSpanishpress={() => {
-            setLanguage("es");
+            i18n.changeLanguage("fr");
             setIsDropdownOpen(false);
           }}
         />
       )}
-    </View>
+    </Animated.View>
   );
 };
 

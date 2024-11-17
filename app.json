@@ -34,11 +34,11 @@
       "policy": "sdkVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/4d6c0172-044d-47e4-8e24-b77d0b09223f"
+      "url": "https://u.expo.dev/358dc684-ce1e-462d-a7c3-8c36136afc94"
     },
     "extra": {
       "eas": {
-        "projectId": "4d6c0172-044d-47e4-8e24-b77d0b09223f"
+        "projectId": "358dc684-ce1e-462d-a7c3-8c36136afc94"
       }
     }
   }

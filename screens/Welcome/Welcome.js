@@ -14,6 +14,7 @@ import Header from "../../globalComponents/Header";
 import { LinearGradient } from "expo-linear-gradient";
 import { getPercent } from "../../middleware";
 import Languagedropdown from "../../globalComponents/Languagedropdown";
+import Simpleheader from "../../globalComponents/Simpleheader";
 
 const translations = {
   en: {
@@ -35,16 +36,13 @@ const Welcome = (props) => {
   const styles = _styles({ width, height });
   const [language, setLanguage] = useState("en");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
-
   const welcomeSlide = useRef(new Animated.Value(-width)).current;
   const descriptionSlide = useRef(new Animated.Value(-width)).current;
   const Buttonslide = useRef(new Animated.Value(-width)).current;
 
   useEffect(
     () => {
-      // Start the slide-in animations
       Animated.sequence([
         Animated.timing(welcomeSlide, {
           toValue: 10,
@@ -78,6 +76,11 @@ const Welcome = (props) => {
 
   return (
     <View style={styles.container}>
+      <Simpleheader
+        isDropdownOpen={isDropdownOpen}
+        onPickrPress={toggleDropdown}
+        title={language === "en" ? "English" : "Français"}
+      />
       {/* Background Video */}
       <View style={styles.videowrapper}>
         <Video
@@ -93,11 +96,7 @@ const Welcome = (props) => {
           style={styles.linearbackground}
         />
       </View>
-      <Header
-        isDropdownOpen={isDropdownOpen}
-        onPickrPress={toggleDropdown}
-        title={language === "en" ? "English" : "Français"}
-      />
+
       <View style={styles.down}></View>
 
       {/* Slide-In Welcome Text */}

@@ -49,6 +49,8 @@ export const styles = ({ width, height }) =>
     shelterDescription: {
       fontSize: rf(14),
       color: "#000000",
+      fontFamily: "Regular",
+      marginTop: 5,
     },
     directionsButton: {
       height: getPercent(8, height),

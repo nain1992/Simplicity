@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,11 +6,13 @@ import {
   useWindowDimensions,
   Linking,
   Alert,
+  Animated,
 } from "react-native";
 import { connect } from "react-redux";
 import { styles as _styles } from "../../styles/Shelterpage/main";
 import Simpleheader from "../../globalComponents/Simpleheader";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 import Languagedropdown from "../../globalComponents/Languagedropdown";
 
 const Shelterpage = ({ route }) => {
@@ -18,13 +20,18 @@ const Shelterpage = ({ route }) => {
   const styles = _styles({ width, height });
   const navigation = useNavigation();
   const { shelter } = route?.params;
-  const [language, setLanguage] = useState("en");
+
+  const { t, i18n } = useTranslation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
-  // Availability status logic
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setIsDropdownOpen(false);
+  };
+
   const getAvailabilityColor = (status) => {
     switch (status) {
       case "Available":
@@ -38,45 +45,60 @@ const Shelterpage = ({ route }) => {
     }
   };
 
-  // Open Google Maps for directions
   const handleGetDirections = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${shelter.latitude},${shelter.longitude}`;
     Linking.openURL(url).catch(() =>
-      Alert.alert("Error", "Failed to open Google Maps.")
+      Alert.alert("Error", t("shelterDetails.errorGoogleMaps"))
     );
   };
 
+  // Animation state
+  const [fadeAnim] = useState(new Animated.Value(0)); //
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       <Simpleheader
         isDropdownOpen={isDropdownOpen}
         onPickrPress={toggleDropdown}
-        title={language === "en" ? "English" : "Français"}
+        title={
+          i18n.language === "en" ? t("language.english") : t("language.french")
+        }
       />
       <View style={styles.container}>
-        {/* Shelter Information */}
         <View style={styles.infoSection}>
           <Text style={styles.shelterName}>{shelter.name}</Text>
-          <Text style={styles.shelterContact}>Contact: {shelter.contact}</Text>
-          <Text style={styles.shelterAddress}>Address: {shelter.address}</Text>
-          <Text style={styles.shelterDescription}>{shelter.description}</Text>
+          <Text style={styles.shelterContact}>
+            {t("shelterDetails.contact")}: {shelter.contact}
+          </Text>
+          <Text style={styles.shelterAddress}>
+            {t("shelterDetails.address")}: {shelter.address}
+          </Text>
+          <Text style={styles.shelterDescription}>
+            {t("shelterDetails.description")}: {shelter.description}
+          </Text>
         </View>
 
         <TouchableOpacity
           style={styles.directionsButton}
           onPress={handleGetDirections}
         >
-          {/* <LinearGradient
-            // Background Linear Gradient
-            colors={["hsl(10, 92%, 85%)", "hsl(10, 92%, 65%)"]}
-            style={styles.background}
-          /> */}
-          <Text style={styles.directionsText}>Get Directions</Text>
+          <Text style={styles.directionsText}>
+            {t("shelterDetails.getDirections")}
+          </Text>
         </TouchableOpacity>
 
-        {/* Availability Status */}
         <View style={styles.availabilitySection}>
-          <Text style={styles.availabilityTitle}>Availability Status:</Text>
+          <Text style={styles.availabilityTitle}>
+            {t("shelterDetails.availabilityStatus")}
+          </Text>
           <View style={styles.availabilityMarkers}>
             <Text
               style={[
@@ -84,7 +106,7 @@ const Shelterpage = ({ route }) => {
                 { color: getAvailabilityColor(shelter.bedAvailability) },
               ]}
             >
-              Beds: {shelter.bedAvailability}
+              {t("shelterDetails.beds")}: {shelter.bedAvailability}
             </Text>
             <Text
               style={[
@@ -92,38 +114,29 @@ const Shelterpage = ({ route }) => {
                 { color: getAvailabilityColor(shelter.foodAvailability) },
               ]}
             >
-              Food: {shelter.foodAvailability}
+              {t("shelterDetails.food")}: {shelter.foodAvailability}
             </Text>
           </View>
         </View>
 
-        {/* Book Now Button */}
         <TouchableOpacity
           style={styles.bookButton}
           onPress={() =>
             navigation?.navigate("Booking", { shelterId: shelter.id })
           }
         >
-          <Text style={styles.bookButtonText}>Book Now</Text>
+          <Text style={styles.bookButtonText}>
+            {t("shelterDetails.bookNow")}
+          </Text>
         </TouchableOpacity>
       </View>
       {isDropdownOpen && (
         <Languagedropdown
-          onEngpress={() => {
-            setLanguage("en");
-            setIsDropdownOpen(false);
-          }}
-          onFrenchpress={() => {
-            setLanguage("es");
-            setIsDropdownOpen(false);
-          }}
-          onSpanishpress={() => {
-            setLanguage("es");
-            setIsDropdownOpen(false);
-          }}
+          onEngpress={() => changeLanguage("en")}
+          onFrenchpress={() => changeLanguage("fr")}
         />
       )}
-    </View>
+    </Animated.View>
   );
 };
 

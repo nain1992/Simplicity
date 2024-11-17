@@ -9,6 +9,21 @@ export const styles = ({ width, height }) =>
       flex: 1,
       backgroundColor: "#fff",
     },
+    backbtn: {
+      height: getPercent(8, height),
+      width: getPercent(90, width),
+      borderRadius: 10,
+      backgroundColor: "hsl(3, 85%, 37%)",
+      justifyContent: "center",
+      alignItems: "center",
+      alignSelf: "center",
+      marginBottom: getPercent(8, height),
+    },
+    backtext: {
+      fontSize: rf(15),
+      fontFamily: "SemiBold",
+      color: "#fff",
+    },
     mapwrappr: {
       height: getPercent(30, height),
       width: getPercent(90, width),
@@ -61,7 +76,7 @@ export const styles = ({ width, height }) =>
     shelterCard: {
       backgroundColor: "#fff",
       borderRadius: 10,
-      minHeight: getPercent(18, height),
+      minHeight: getPercent(15, height),
       justifyContent: "center",
       width: getPercent(90, width),
       alignSelf: "center",

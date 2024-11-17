@@ -1,0 +1,49 @@
+{
+  "ourServices": "Our Services",
+  "shelters": "Shelters",
+  "food": "Food",
+  "health": "Health",
+  "chooseService": "Choose the service that best fits your needs and click to explore more about it",
+  "comingSoon": "Coming Soon!",
+  "goBack": "Go Back",
+  "locationPermissionDenied": "Permission to access location was denied",
+  "yourLocation": "Your Location",
+  "youAreHere": "You are here",
+  "searchShelters": "Search shelters...",
+  "language": {
+    "english": "English",
+    "french": "Français"
+  },
+  "shelterDetails": {
+    "contact": "Contact",
+    "address": "Address",
+    "description": "Description",
+    "getDirections": "Get Directions",
+    "availabilityStatus": "Availability Status",
+    "beds": "Beds",
+    "food": "Food",
+    "bookNow": "Book Now",
+    "errorGoogleMaps": "Failed to open Google Maps."
+  },
+  "booking": {
+    "header": "Booking Details",
+    "time": "Time",
+    "timePlaceholder": "Enter time",
+    "bedsRequired": "Number of Beds Required",
+    "bedsPlaceholder": "Enter number of beds",
+    "yourName": "Your Name",
+    "namePlaceholder": "Enter your name",
+    "book": "Book",
+    "errorFillFields": "Please fill all the fields."
+  },
+  "bookingConfirmation": {
+    "bookingSummary": "Booking Summary",
+    "name": "Name",
+    "numberOfBeds": "Number of Beds",
+    "time": "Time",
+    "confirmationNumber": "Confirmation Number",
+    "printDetails": "Print Details",
+    "printingNotImplemented": "Printing functionality is not implemented.",
+    "returnToInfoPage": "Return to Info Page"
+  }
+}

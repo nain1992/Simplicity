@@ -48,6 +48,21 @@ export const styles = ({ width, height }) =>
       borderRadius: 10,
       overflow: "hidden",
     },
+    backbtn: {
+      height: getPercent(8, height),
+      width: getPercent(90, width),
+      borderRadius: 10,
+      backgroundColor: "hsl(3, 85%, 37%)",
+      justifyContent: "center",
+      alignItems: "center",
+      alignSelf: "center",
+      marginTop: getPercent(5, height),
+    },
+    backtext: {
+      fontSize: rf(15),
+      fontFamily: "SemiBold",
+      color: "#fff",
+    },
     bookButtonText: {
       color: "#fff",
       fontSize: rf(16),

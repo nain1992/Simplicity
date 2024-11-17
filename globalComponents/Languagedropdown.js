@@ -4,6 +4,7 @@ import {
   View,
   useWindowDimensions,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import { connect } from "react-redux";
 import { styles as _styles } from "../styles/Languagedropdown/main";
@@ -29,7 +30,8 @@ const Languagedropsown = (props) => {
   const styles = _styles({ width, height });
 
   return (
-    <View style={styles.container}>
+    <Modal animationType="fade" transparent={true}>
+      <View style={{ flex: 1, backgroundColor: "#00000aaa" }}></View>
       <View style={styles.dropdownMenu}>
         <TouchableOpacity onPress={onEngpress} style={styles.dropdownItem}>
           <Text style={styles.dropdownText}>English</Text>
@@ -41,7 +43,7 @@ const Languagedropsown = (props) => {
           <Text style={styles.dropdownText}>Español</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </Modal>
   );
 };
 

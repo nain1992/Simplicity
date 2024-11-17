@@ -45,7 +45,7 @@ export const styles = ({ width, height }) =>
     },
     printButton: {
       height: getPercent(8, height),
-      width: getPercent(43, width),
+      width: getPercent(44, width),
       backgroundColor: "hsl(3, 85%, 40%)",
 
       justifyContent: "center",
@@ -63,8 +63,8 @@ export const styles = ({ width, height }) =>
     },
     returnButton: {
       height: getPercent(8, height),
-      width: getPercent(43, width),
-      backgroundColor: "#000000",
+      width: getPercent(44, width),
+      backgroundColor: "hsl(3, 85%, 40%)",
 
       justifyContent: "center",
       borderRadius: 10,
@@ -81,7 +81,8 @@ export const styles = ({ width, height }) =>
     },
     buttonText: {
       color: "#fff",
-      fontSize: rf(14),
+      fontSize: rf(12),
       fontFamily: "SemiBold",
+      textAlign: "center",
     },
   });

@@ -15,12 +15,14 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import Languagedropdown from "../../globalComponents/Languagedropdown";
+import { useTranslation } from "react-i18next";
 
 const Mainservices = (props) => {
+  const { t, i18n } = useTranslation();
   const { width, height } = useWindowDimensions();
   const styles = _styles({ width, height });
-  const [language, setLanguage] = useState("en");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
@@ -31,13 +33,13 @@ const Mainservices = (props) => {
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 3000,
+      duration: 1500,
       useNativeDriver: true,
     }).start();
 
     Animated.timing(translateYAnim, {
       toValue: 0,
-      duration: 3000,
+      duration: 1500,
       useNativeDriver: true,
     }).start();
   }, []);
@@ -45,20 +47,20 @@ const Mainservices = (props) => {
   const btnsdata = [
     {
       icon: <FontAwesome6 name="person-shelter" size={20} color="#000000" />,
-      title: "Shelters",
+      title: t("shelters"),
       onPress: () => props?.navigation?.navigate("Shelterlocator"),
     },
     {
       icon: <MaterialCommunityIcons name="food" size={20} color="#000000" />,
-      title: "Food",
-      onPress: () => alert("Coming Soon!"),
+      title: t("food"),
+      onPress: () => alert(t("comingSoon")),
     },
     {
       icon: (
         <MaterialIcons name="health-and-safety" size={20} color="#000000" />
       ),
-      title: "Health",
-      onPress: () => alert("Coming Soon!"),
+      title: t("health"),
+      onPress: () => alert(t("comingSoon")),
     },
   ];
 
@@ -67,7 +69,7 @@ const Mainservices = (props) => {
       <Simpleheader
         isDropdownOpen={isDropdownOpen}
         onPickrPress={toggleDropdown}
-        title={language === "en" ? "English" : "Français"}
+        title={i18n.language === "en" ? "English" : "Français"}
       />
 
       <Animated.View
@@ -76,7 +78,7 @@ const Mainservices = (props) => {
           { opacity: fadeAnim, transform: [{ translateY: translateYAnim }] },
         ]}
       >
-        <Text style={styles.title}>Our Services</Text>
+        <Text style={styles.title}>{t("ourServices")}</Text>
       </Animated.View>
 
       <Animated.View
@@ -103,8 +105,7 @@ const Mainservices = (props) => {
           { opacity: fadeAnim, transform: [{ translateY: translateYAnim }] },
         ]}
       >
-        Choose the service that best fits your needs and click to explore more
-        about it
+        {t("chooseService")}
       </Animated.Text>
 
       <Animated.View
@@ -117,22 +118,18 @@ const Mainservices = (props) => {
           style={styles.backbtn}
           onPress={() => props?.navigation?.navigate("Welcome")}
         >
-          <Text style={styles.backtext}>Go Back</Text>
+          <Text style={styles.backtext}>{t("goBack")}</Text>
         </TouchableOpacity>
       </Animated.View>
 
       {isDropdownOpen && (
         <Languagedropdown
           onEngpress={() => {
-            setLanguage("en");
+            i18n.changeLanguage("en");
             setIsDropdownOpen(false);
           }}
           onFrenchpress={() => {
-            setLanguage("fr");
-            setIsDropdownOpen(false);
-          }}
-          onSpanishpress={() => {
-            setLanguage("es");
+            i18n.changeLanguage("fr");
             setIsDropdownOpen(false);
           }}
         />
