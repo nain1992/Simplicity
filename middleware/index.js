@@ -1,4 +1,6 @@
 import { useWindowDimensions } from "react-native";
+import { firestore } from "../firebase/firebase"; // Import the initialized Firestore
+import { collection, addDoc } from "firebase/firestore";
 
 export const FontsConfig = {
   Black: require("../assets/fonts/Montserrat-Black.ttf"),
@@ -76,4 +78,13 @@ export const toHMS_OBJ = (seconds) => {
   let time = new Date(seconds * 1000).toISOString().slice(11, 19);
   let newObj = time.split(":");
   return { hours: newObj[0], minutes: newObj[1], seconds: newObj[2] };
+};
+
+export const saveBookings = async (data, loading) => {
+  try {
+    const docRef = await addDoc(collection(firestore, "bookings"), data);
+    console.log("Data saved with ID:", docRef.id);
+  } catch (error) {
+    console.error("Error saving data:", error);
+  }
 };

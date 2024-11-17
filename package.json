@@ -21,6 +21,7 @@
     "expo-location": "~18.0.1",
     "expo-status-bar": "~2.0.0",
     "expo-updates": "~0.26.7",
+    "firebase": "^11.0.2",
     "i18next": "^23.16.5",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-http-backend": "^2.6.2",

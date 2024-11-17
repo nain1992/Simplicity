@@ -10,65 +10,42 @@ import { connect } from "react-redux";
 import { styles as _styles } from "../../styles/Welcome/main";
 import StandardButton from "../../globalComponents/StandardButton";
 import { Video } from "expo-av";
-import Header from "../../globalComponents/Header";
 import { LinearGradient } from "expo-linear-gradient";
 import { getPercent } from "../../middleware";
 import Languagedropdown from "../../globalComponents/Languagedropdown";
 import Simpleheader from "../../globalComponents/Simpleheader";
-
-const translations = {
-  en: {
-    welcome: "Welcome\nto\nSimplicity",
-    description:
-      "We aim to improve resource and service accessibility for our unhoused neighbors. We hope to unify the city and its individuals through sustainable innovation and social impact.",
-    continue: "Continue",
-  },
-  es: {
-    welcome: "Bienvenue\ndans la\nsimplicité",
-    description:
-      "Nous visons à améliorer l’accessibilité aux ressources et aux services pour nos voisins sans logement. Nous espérons unifier la ville et ses individus grâce à l’innovation durable et à l’impact social",
-    continue: "Continuer",
-  },
-};
+import { useTranslation } from "react-i18next";
 
 const Welcome = (props) => {
+  const { t, i18n } = useTranslation();
   const { width, height } = useWindowDimensions();
   const styles = _styles({ width, height });
-  const [language, setLanguage] = useState("en");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
+
   const welcomeSlide = useRef(new Animated.Value(-width)).current;
   const descriptionSlide = useRef(new Animated.Value(-width)).current;
   const Buttonslide = useRef(new Animated.Value(-width)).current;
 
-  useEffect(
-    () => {
-      Animated.sequence([
-        Animated.timing(welcomeSlide, {
-          toValue: 10,
-          duration: 3000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(descriptionSlide, {
-          toValue: 10,
-          duration: 3000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(Buttonslide, {
-          toValue: 10,
-          duration: 3000,
-          useNativeDriver: true,
-        }),
-      ]).start();
-    },
-    [welcomeSlide, descriptionSlide],
-    Buttonslide
-  );
-
-  const changeLanguage = (languageCode) => {
-    setLanguage(languageCode);
-    setIsDropdownOpen(false);
-  };
+  useEffect(() => {
+    Animated.sequence([
+      Animated.timing(welcomeSlide, {
+        toValue: 10,
+        duration: 3000,
+        useNativeDriver: true,
+      }),
+      Animated.timing(descriptionSlide, {
+        toValue: 10,
+        duration: 3000,
+        useNativeDriver: true,
+      }),
+      Animated.timing(Buttonslide, {
+        toValue: 10,
+        duration: 3000,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, [welcomeSlide, descriptionSlide, Buttonslide]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -79,7 +56,7 @@ const Welcome = (props) => {
       <Simpleheader
         isDropdownOpen={isDropdownOpen}
         onPickrPress={toggleDropdown}
-        title={language === "en" ? "English" : "Français"}
+        title={i18n.language === "en" ? "English" : "Français"}
       />
       {/* Background Video */}
       <View style={styles.videowrapper}>
@@ -99,13 +76,12 @@ const Welcome = (props) => {
 
       <View style={styles.down}></View>
 
-      {/* Slide-In Welcome Text */}
       <Animated.View
         style={{
           transform: [{ translateX: welcomeSlide }],
         }}
       >
-        <Text style={styles.header}>{translations[language].welcome}</Text>
+        <Text style={styles.header}>{t("welcome.title")}</Text>
       </Animated.View>
 
       {/* Slide-In Description Text */}
@@ -117,11 +93,10 @@ const Welcome = (props) => {
           justifyContent: "center",
         }}
       >
-        <Text style={styles.subText}>{translations[language].description}</Text>
+        <Text style={styles.subText}>{t("welcome.description")}</Text>
       </Animated.View>
 
       {/* Continue Button */}
-
       <Animated.View
         style={{
           transform: [{ translateX: Buttonslide }],
@@ -130,7 +105,7 @@ const Welcome = (props) => {
         }}
       >
         <StandardButton
-          title={translations[language].continue}
+          title={t("welcome.continue")}
           onPress={() => {
             props?.navigation?.navigate("Mainservices");
             setIsVideoPlaying(false);
@@ -142,15 +117,11 @@ const Welcome = (props) => {
       {isDropdownOpen && (
         <Languagedropdown
           onEngpress={() => {
-            setLanguage("en");
+            i18n.changeLanguage("en");
             setIsDropdownOpen(false);
           }}
           onFrenchpress={() => {
-            setLanguage("es");
-            setIsDropdownOpen(false);
-          }}
-          onSpanishpress={() => {
-            setLanguage("es");
+            i18n.changeLanguage("fr");
             setIsDropdownOpen(false);
           }}
         />

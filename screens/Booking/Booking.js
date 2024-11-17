@@ -13,10 +13,11 @@ import { styles as _styles } from "../../styles/Booking/main";
 import { connect } from "react-redux";
 import Simpleheader from "../../globalComponents/Simpleheader";
 import Languagedropdown from "../../globalComponents/Languagedropdown";
-import { useTranslation } from "react-i18next"; // Import useTranslation
+import { useTranslation } from "react-i18next";
+import { saveBookings } from "../../middleware";
 
 const Booking = (props) => {
-  const { t, i18n } = useTranslation(); // Initialize translation hook
+  const { t, i18n } = useTranslation();
   const { width, height } = useWindowDimensions();
   const styles = _styles({ width, height });
 
@@ -29,16 +30,17 @@ const Booking = (props) => {
     setIsDropdownOpen((prev) => !prev);
   };
 
-  const handleBooking = () => {
+  const handleBooking = async () => {
     if (time && bedsRequired && userName) {
       const bookingDetails = {
         name: userName,
         beds: bedsRequired,
         time: time,
         confirmationNumber: Math.floor(Math.random() * 1000000),
+
         shelterId: props?.shelterId || "",
       };
-
+      await saveBookings(bookingDetails);
       props?.navigation?.navigate("BookingConfirmation", { bookingDetails });
     } else {
       Alert.alert(t("errorFillFields"));

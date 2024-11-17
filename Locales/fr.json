@@ -45,5 +45,10 @@
     "printDetails": "Imprimer les détails",
     "printingNotImplemented": "La fonctionnalité d'impression n'est pas implémentée.",
     "returnToInfoPage": "Retourner à la page d'information"
+  },
+  "welcome": {
+    "title": "Bienvenue\ndans la\nSimplicité",
+    "description": "Nous visons à améliorer l’accessibilité aux ressources et aux services pour nos voisins sans logement. Nous espérons unifier la ville et ses individus grâce à l’innovation durable et à l’impact social.",
+    "continue": "Continuer"
   }
 }

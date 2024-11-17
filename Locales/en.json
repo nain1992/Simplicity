@@ -45,5 +45,10 @@
     "printDetails": "Print Details",
     "printingNotImplemented": "Printing functionality is not implemented.",
     "returnToInfoPage": "Return to Info Page"
+  },
+  "welcome": {
+    "title": "Welcome\nto\nSimplicity",
+    "description": "We aim to improve resource and service accessibility for our unhoused neighbors. We hope to unify the city and its individuals through sustainable innovation and social impact.",
+    "continue": "Continue"
   }
 }

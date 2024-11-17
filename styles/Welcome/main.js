@@ -85,7 +85,8 @@ export const styles = ({ width, height }) =>
     videowrapper: {
       height: getPercent(100, height),
       width: getPercent(100, width),
-      // backgroundColor: "red",
+
+      marginTop: getPercent(5, height),
       position: "absolute",
     },
     linearbackground: {
