@@ -80,7 +80,7 @@ export const styles = ({ width, height }) =>
       justifyContent: "center",
       width: getPercent(90, width),
       alignSelf: "center",
-      paddingHorizontal: 10,
+      padding: 10,
       borderWidth: 0.7,
       borderColor: "hsl(3, 85%, 37%)",
       marginVertical: 5,
@@ -101,9 +101,15 @@ export const styles = ({ width, height }) =>
       lineHeight: 30,
     },
     shelterInfo: {
-      fontSize: rf(12),
+      fontSize: rf(10),
       fontFamily: "Medium",
       color: "#000000",
       lineHeight: 25,
+    },
+    shelterdes: {
+      fontSize: rf(11),
+      fontFamily: "Regular",
+      color: "#000000",
+      lineHeight: 18,
     },
   });

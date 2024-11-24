@@ -82,7 +82,7 @@ const Shelterpage = ({ route }) => {
             {t("shelterDetails.address")}: {shelter.address}
           </Text>
           <Text style={styles.shelterDescription}>
-            {t("shelterDetails.description")}: {shelter.description}
+            {t("shelterDetails.description")}: {shelter.descriptionn}
           </Text>
         </View>
 

@@ -19,27 +19,25 @@ import { useTranslation } from "react-i18next";
 const shelters = [
   {
     id: "1",
-    name: "Shelter One",
+    name: "Operation Come Home",
     latitude: 45.3521,
     longitude: -75.754,
+    address: "Address: 150 Gloucester St, Ottawa, ON, K2P 0A6",
+    descriptionn:
+      "Offers information and resources for homeless youth. Weekly visits from outreach workers (e.g., mental health nurses, counseling). Provides hot breakfast and dinner every day. Employment support every Thursday.",
     availability: "Available beds: 5",
-    contact: "123-456-7890",
+    contact: "613-230-4663",
   },
   {
     id: "2",
-    name: "Shelter Two",
+    name: "United Way East Ontario / Centraide Est de l'Ontario",
+    address: "Address: 363 Coventry Rd, Ottawa, ON, K1K 2C5",
+    descriptionn:
+      "United Way East Ontario contributes to community strength by supporting programs and initiatives aimed at improving conditions for children and youth, reducing poverty, and fostering healthy communities.",
     latitude: 45.3521,
     longitude: -75.754,
     availability: "Available beds: 2",
     contact: "123-456-7891",
-  },
-  {
-    id: "3",
-    name: "Shelter Three",
-    latitude: 45.3521,
-    longitude: -75.754,
-    availability: "Full",
-    contact: "123-456-7892",
   },
 ];
 
@@ -104,6 +102,14 @@ const Shelterlocator = (props) => {
           i18n.language === "en" ? t("language.english") : t("language.french")
         }
       />
+      <View style={styles.searchBar}>
+        <TextInput
+          style={styles.input}
+          placeholder={t("searchShelters")}
+          value={searchQuery}
+          onChangeText={handleSearch}
+        />
+      </View>
       {/* Map View */}
       <View style={styles.mapwrappr}>
         <MapView style={styles.map} region={location}>
@@ -129,16 +135,6 @@ const Shelterlocator = (props) => {
         </MapView>
       </View>
 
-      {/* Search and Filter Bar */}
-      <View style={styles.searchBar}>
-        <TextInput
-          style={styles.input}
-          placeholder={t("searchShelters")}
-          value={searchQuery}
-          onChangeText={handleSearch}
-        />
-      </View>
-
       {/* Shelter List View */}
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -155,7 +151,9 @@ const Shelterlocator = (props) => {
             }
           >
             <Text style={styles.shelterName}>{item?.name}</Text>
+            <Text style={styles.shelterdes}>{item?.descriptionn}</Text>
             <Text style={styles.shelterInfo}>{item?.availability}</Text>
+            <Text style={styles.shelterInfo}>{item?.address}</Text>
             <Text style={styles.shelterInfo}>{item?.contact}</Text>
           </TouchableOpacity>
         )}

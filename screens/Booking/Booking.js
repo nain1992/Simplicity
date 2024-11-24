@@ -8,7 +8,9 @@ import {
   KeyboardAvoidingView,
   Alert,
   Animated,
+  Platform,
 } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { styles as _styles } from "../../styles/Booking/main";
 import { connect } from "react-redux";
 import Simpleheader from "../../globalComponents/Simpleheader";
@@ -22,12 +24,25 @@ const Booking = (props) => {
   const styles = _styles({ width, height });
 
   const [time, setTime] = useState("");
+  const [showTimePicker, setShowTimePicker] = useState(false);
   const [bedsRequired, setBedsRequired] = useState("");
   const [userName, setUserName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
+  };
+
+  const handleTimeChange = (event, selectedTime) => {
+    setShowTimePicker(Platform.OS === "ios");
+    if (selectedTime) {
+      const hours = selectedTime.getHours();
+      const minutes = selectedTime.getMinutes();
+      const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")}`;
+      setTime(formattedTime);
+    }
   };
 
   const handleBooking = async () => {
@@ -37,7 +52,6 @@ const Booking = (props) => {
         beds: bedsRequired,
         time: time,
         confirmationNumber: Math.floor(Math.random() * 1000000),
-
         shelterId: props?.shelterId || "",
       };
       await saveBookings(bookingDetails);
@@ -69,13 +83,23 @@ const Booking = (props) => {
 
         <View style={styles.inputContainer}>
           <Text style={styles.label}>{t("booking.time")}</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={t("booking.timePlaceholder")}
-            value={time}
-            onChangeText={setTime}
-            keyboardType="default"
-          />
+          <TouchableOpacity
+            onPress={() => setShowTimePicker(true)}
+            style={styles.timePickerButton}
+          >
+            <Text style={styles.timePickerText}>
+              {time || t("booking.timePlaceholder")}
+            </Text>
+          </TouchableOpacity>
+          {showTimePicker && (
+            <DateTimePicker
+              value={new Date()}
+              mode="time"
+              is24Hour={true}
+              display="default"
+              onChange={handleTimeChange}
+            />
+          )}
         </View>
 
         <View style={styles.inputContainer}>

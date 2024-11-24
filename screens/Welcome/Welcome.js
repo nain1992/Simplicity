@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Text,
-  View,
-  useWindowDimensions,
-  TouchableOpacity,
-  Animated,
-} from "react-native";
+import { Text, View, useWindowDimensions, Animated } from "react-native";
 import { connect } from "react-redux";
 import { styles as _styles } from "../../styles/Welcome/main";
 import StandardButton from "../../globalComponents/StandardButton";
@@ -73,9 +67,7 @@ const Welcome = (props) => {
           style={styles.linearbackground}
         />
       </View>
-
       <View style={styles.down}></View>
-
       <Animated.View
         style={{
           transform: [{ translateX: welcomeSlide }],

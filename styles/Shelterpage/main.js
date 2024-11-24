@@ -11,7 +11,7 @@ export const styles = ({ width, height }) =>
     },
     infoSection: {
       backgroundColor: "#fff",
-      height: getPercent(25, height),
+      minHeight: getPercent(25, height),
       width: getPercent(90, width),
       borderRadius: 10,
       alignSelf: "center",
@@ -41,16 +41,16 @@ export const styles = ({ width, height }) =>
       lineHeight: 30,
     },
     shelterAddress: {
-      fontSize: rf(14),
+      fontSize: rf(12),
       color: "#000000",
       fontFamily: "Regular",
-      marginTop: 5,
+      lineHeight: 18,
     },
     shelterDescription: {
-      fontSize: rf(14),
+      fontSize: rf(11),
       color: "#000000",
       fontFamily: "Regular",
-      marginTop: 5,
+      lineHeight: 18,
     },
     directionsButton: {
       height: getPercent(8, height),
