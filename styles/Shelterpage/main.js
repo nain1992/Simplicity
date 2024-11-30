@@ -35,7 +35,7 @@ export const styles = ({ width, height }) =>
       lineHeight: 40,
     },
     shelterContact: {
-      fontSize: rf(14),
+      fontSize: rf(12),
       color: "#000000",
       fontFamily: "Regular",
       lineHeight: 30,
@@ -54,7 +54,7 @@ export const styles = ({ width, height }) =>
     },
     directionsButton: {
       height: getPercent(8, height),
-      width: getPercent(90, width),
+      width: getPercent(42, width),
       justifyContent: "center",
       borderRadius: 10,
       alignItems: "center",
@@ -79,7 +79,7 @@ export const styles = ({ width, height }) =>
       lineHeight: 40,
     },
     availabilityMarkers: {
-      flexDirection: "row",
+      // flexDirection: "row",
       marginTop: 10,
       height: getPercent(25, height),
       width: getPercent(90, width),
@@ -100,9 +100,10 @@ export const styles = ({ width, height }) =>
       elevation: 5,
     },
     marker: {
-      fontSize: rf(13),
+      fontSize: rf(15),
       marginLeft: 10,
       fontFamily: "SemiBold",
+      marginBottom: 10,
     },
     bookButton: {
       height: getPercent(8, height),

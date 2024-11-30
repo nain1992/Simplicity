@@ -14,6 +14,7 @@ import Simpleheader from "../../globalComponents/Simpleheader";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import Languagedropdown from "../../globalComponents/Languagedropdown";
+import { getPercent } from "../../middleware";
 
 const Shelterpage = ({ route }) => {
   const { width, height } = useWindowDimensions();
@@ -75,26 +76,40 @@ const Shelterpage = ({ route }) => {
       <View style={styles.container}>
         <View style={styles.infoSection}>
           <Text style={styles.shelterName}>{shelter.name}</Text>
-          <Text style={styles.shelterContact}>
-            {t("shelterDetails.contact")}: {shelter.contact}
-          </Text>
           <Text style={styles.shelterAddress}>
             {t("shelterDetails.address")}: {shelter.address}
+          </Text>
+          <Text style={styles.shelterContact}>
+            {t("shelterDetails.contact")}: {shelter.contact}
           </Text>
           <Text style={styles.shelterDescription}>
             {t("shelterDetails.description")}: {shelter.descriptionn}
           </Text>
         </View>
 
-        <TouchableOpacity
-          style={styles.directionsButton}
-          onPress={handleGetDirections}
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: getPercent(5, width),
+            justifyContent: "space-between",
+          }}
         >
-          <Text style={styles.directionsText}>
-            {t("shelterDetails.getDirections")}
-          </Text>
-        </TouchableOpacity>
-
+          <TouchableOpacity
+            style={styles.directionsButton}
+            onPress={() => navigation?.goBack()}
+          >
+            <Text style={styles.directionsText}>{t("goBack")}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.directionsButton}
+            onPress={handleGetDirections}
+          >
+            <Text style={styles.directionsText}>
+              {t("shelterDetails.getDirections")}
+            </Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.availabilitySection}>
           <Text style={styles.availabilityTitle}>
             {t("shelterDetails.availabilityStatus")}
@@ -106,7 +121,8 @@ const Shelterpage = ({ route }) => {
                 { color: getAvailabilityColor(shelter.bedAvailability) },
               ]}
             >
-              {t("shelterDetails.beds")}: {shelter.bedAvailability}
+              {t("shelterDetails.beds")}: {shelter.availability} (
+              {shelter.bedAvailability})
             </Text>
             <Text
               style={[

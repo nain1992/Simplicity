@@ -101,7 +101,7 @@ export const styles = ({ width, height }) =>
       lineHeight: 30,
     },
     shelterInfo: {
-      fontSize: rf(10),
+      fontSize: rf(12),
       fontFamily: "Medium",
       color: "#000000",
       lineHeight: 25,

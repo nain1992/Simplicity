@@ -14,8 +14,8 @@ function AppNavigation() {
   return (
     <Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
       <Screen name="Welcome" component={Welcome} />
-      <Screen name="Mainservices" component={Mainservices} />
       <Screen name="Shelterlocator" component={Shelterlocator} />
+      <Screen name="Mainservices" component={Mainservices} />
       <Screen name="Shelterpage" component={Shelterpage} />
       <Screen name="Booking" component={Booking} />
       <Screen name="BookingConfirmation" component={BookingConfirmation} />
